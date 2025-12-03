@@ -4,6 +4,15 @@ form action="/" method="post"
     input type="submit" value="Add"
 
 - @todo_arr.each do |todo|
+
+
     h2 #{todo["id"]}
     h2 #{todo["name"]}
     p #{todo["description"]}
+    
+    form action="/#{todo["id"]}/delete" method="post"
+        input type="submit" value="done"
+
+    form action="/#{todo["id"]}/edit" method="get"
+        input type="submit" value="edit"
+

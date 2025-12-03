@@ -39,6 +39,19 @@ post('/') do
   redirect('/')
 end
 
+post('/:id/delete') do
+  delete_this = params[:id]
+
+  db = SQLite3::Database.new("db/todos.db")
+
+  db.execute("DELETE FROM todos WHERE id=?", [delete_this])
+  redirect('/')
+
+end
+
+get('/:id/edit') do
+end
+
 
 
 
