@@ -50,7 +50,29 @@ post('/:id/delete') do
 end
 
 get('/:id/edit') do
+  id = params[:id].to_i
+  db = SQLite3::Database.new('db/todos.db')
+  db.results_as_hash = true
+  @selected_todos = db.execute("SELECT * FROM todos WHERE id = ?", [id]).first
+  
+  slim(:edit)
+
 end
+
+post('/:id/update') do
+  db = SQLite3::Database.new('db/todos.db')
+
+  id = params[:id].to_i
+  name = params[:name]
+  description = params[:description]
+
+  db.execute("UPDATE todos SET name=?, description=? WHERE id=?",[name, description, id])
+
+  redirect('/')
+end
+
+
+  
 
 
 
